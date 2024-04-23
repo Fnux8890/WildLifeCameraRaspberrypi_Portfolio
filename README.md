@@ -3,6 +3,7 @@
 
 ## Pi
 - [ ] Done?
+
 The wildlife camera linux system is your Raspberry Pi with a Raspberry Pi Camera Module 3. 
 
 Please follow the installation instructions under Extra components. You can then test the camera using the command:
@@ -13,6 +14,7 @@ To perform motion detection you may use the script motion_detect.py available on
 
 ## Pico
 - [ ] Done?
+
 The camera is connected via USB to the Raspberry Pi which acts as rain sensor (simulated by press of the onboard BOOTSEL botton) and camera lens screen wiper (simulated by a servo performing a wiping movement).
 
 Connect the servo to the following Raspberry Pico pins
@@ -40,12 +42,14 @@ If you send erroneous JSON data, you will receive:
 
 ## Esp32
 - [ ] Done?
+
 The external wildlife trigger is the ESP8266 connected to the wildlife camera WiFi access point. The trigger mechanism is a ground wire and a digital input wire that simulate an animal walking above a pressure plate causing a short circuit of the wires (you may use an external button).
 
 Modify the Arduino sketch esp8266_count_mqtt.ino from module 7 to send data immediately when a short circuit (button press) is detected.
 
 ## Drone
 - [ ] Done?
+
 The drone is simulated by you linux desktop environment on your laptop.
 
 During drone flight your laptop should be disconnected from the internet and a "drone flight" script should use the laptop WiFi to search for nearby cameras by means of the WiFi SSID.
