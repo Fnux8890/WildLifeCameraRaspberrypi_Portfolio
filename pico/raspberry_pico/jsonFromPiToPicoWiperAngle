@@ -1,0 +1,57 @@
+import json
+import serial
+import time
+
+# Setup serial connection
+# Replace 'COMx' with the correct port name your Raspberry Pi Pico is connected to
+ser = serial.Serial('COM11', 115200, timeout=1)
+
+def send_json(angle):
+    """
+    Send a JSON command to the Raspberry Pi Pico to control the servo angle.
+    """
+    command = json.dumps({"wiper_angle": angle})
+    print("Sending command:", command)
+    ser.write((command + '\n').encode('utf-8'))
+    time.sleep(0.05) 
+
+def read_and_respond():
+    """
+    Read data from the serial, check for rain detection, and respond with angle adjustments.
+    """
+    try:
+        while True:
+            if ser.in_waiting:
+                response = ser.readline().decode('utf-8').strip()
+                print("Response from Pico:", response)
+                try:
+                    data = json.loads(response)
+                    if "rain_detect" in data and data["rain_detect"] == 1:
+                        print("Rain detected. Moving wiper to 0 degrees.")
+                        send_json(180)
+                        time.sleep(0.3)  # Wait a second before checking again
+
+                        # Check if there's still rain
+                        if ser.in_waiting:  # Check for new data, if available
+                            response = ser.readline().decode('utf-8').strip()
+                            print("New data received:", response)
+                            new_data = json.loads(response)
+                            if "rain_detect" in new_data and new_data["rain_detect"] == 1:
+                                print("Rain still detected. Moving wiper to 180 degrees.")
+                                send_json(0)
+                            else:
+                                print("No more rain detected.")
+                        else:
+                            print("No new data. Assuming rain still present.")
+                            send_json(0)
+                except json.JSONDecodeError:
+                    print("Error decoding JSON")
+    except KeyboardInterrupt:
+        print("Interrupted by user")
+
+if __name__ == "__main__":
+    try:
+        # Start reading and responding based on the Pico's output
+        read_and_respond()
+    finally:
+        ser.close()  # Ensure the serial connection is closed on exit
