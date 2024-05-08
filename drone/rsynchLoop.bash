@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Define the target SSID
-TARGET_SSID="YourTargetSSID"
+TARGET_SSID="EMLI-TEAM-23"
 
 # Define remote and local path for rsync
-REMOTE_PATH="user@remote_host:/path/to/remote/images/"
-LOCAL_PATH="/path/to/local/images/"
+REMOTE_PATH="jaflo18@10.0.0.10:/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"
+LOCAL_PATH="/home/jeppe/Desktop/Drone/images"
 
 # Function to get the current WiFi SSID
 current_ssid() {
@@ -15,7 +15,7 @@ current_ssid() {
 
 # Function to perform rsync operation
 sync_images() {
-    rsync -avz --remove-source-files "$REMOTE_PATH" "$LOCAL_PATH"
+    rsync -avz  "$REMOTE_PATH" "$LOCAL_PATH"
 }
 
 # Infinite loop to check the connection and sync images
