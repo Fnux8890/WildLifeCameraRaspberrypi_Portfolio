@@ -3,39 +3,33 @@
 today=$(date +%F)
 nowTime=$(date +%H%M%S_%3N)
 
-if [ -d "./$today" ]; then
+if [ -d "/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/$today" ]; then
 	echo "folder already exists"
 else
 	echo "Creating folder"
-	mkdir ./"$today"
+	mkdir /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"
 fi
 
-latest_image=$(ls -t ./"$today"/*.jpg | head -n1)
+latest_image=$(ls -t /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"/*.jpg | head -n1)
 
-echo $(rpicam-still -t 0.01 -o ./"$today"/"$nowTime".jpg)
+echo $(rpicam-still -t 0.01 -o /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"/"$nowTime".jpg)
 
 create_date=$(date "+%Y-%m-%d %H:%M:%S.%3N%:z")
-subject_distance=$(exiftool ./"$today"/"$nowTime".jpg | grep -i "Subject Distance" | awk -F ": " '{print $2}')
-exposure_time=$(exiftool ./"$today"/"$nowTime".jpg | grep -i "Exposure Time" | awk -F ": " '{print $2}')
-iso=$(exiftool ./"$today"/"$nowTime".jpg | grep -i "ISO" | awk -F ": " '{print $2}')
+subject_distance=$(exiftool /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"/"$nowTime".jpg | grep -i "Subject Distance" | awk -F ": " '{print $2}' | sed 's/ m$//')
+exposure_time=$(exiftool /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"/"$nowTime".jpg | grep -i "Exposure Time" | awk -F ": " '{print $2}')
+iso=$(exiftool /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"/"$nowTime".jpg | grep -i "ISO" | awk -F ": " '{print $2}')
 
 epoch=$(date +%s)
 ms=$(date +%3N)
 
 milli="$epoch.$ms"
 
-# Run the Python motion detection script and capture its output
+#If the script is called with external the trigger is external and vice versa for other triggers
 if [ "$1" == "external" ]; then
   trigger="External"
-else
-  motion_detected=$(python3 motion_detect.py "$latest_image" ./"$today"/"$nowTime".jpg)
 
-  # Determine the trigger based on motion detection
-  if [ "$motion_detected" = "Motion detected" ]; then
-      trigger="Motion"
-  else
-      trigger="Time"
-  fi
+elif [ "$1" == "time" ]; then
+  trigger="Time"  
 fi
 
 
@@ -52,4 +46,5 @@ json_data=$(cat <<EOF
 EOF
 )
 
-echo "$json_data" > ./"$today"/"$nowTime".json
+echo "$json_data" > /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"/"$nowTime".json
+cp -r "/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/$today" "/var/www/html/images/"
