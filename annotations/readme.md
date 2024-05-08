@@ -1,0 +1,1 @@
+This folder contains annotations for the images taken by the wildlife camera
