@@ -9,11 +9,11 @@
 #define WIFI_SSID       "EMLI-TEAM-23"
 #define WIFI_PASSWORD    "emliemli"
 
-#define MQTT_SERVER      "io.adafruit.com"
+#define MQTT_SERVER      "192.168.10.1"
 #define MQTT_SERVERPORT  1883 
-#define MQTT_USERNAME    ""
-#define MQTT_KEY         ""
-#define MQTT_TOPIC       "/feeds/count"  
+#define MQTT_USERNAME    "jaflo18"
+#define MQTT_KEY         "avd85hfk"
+#define MQTT_TOPIC       "/external"  
 
 // wifi
 #include <ESP8266WiFiMulti.h>
@@ -33,14 +33,6 @@ volatile unsigned long count;
 WiFiClient wifi_client;
 Adafruit_MQTT_Client mqtt(&wifi_client, MQTT_SERVER, MQTT_SERVERPORT, MQTT_USERNAME, MQTT_KEY);
 Adafruit_MQTT_Publish count_mqtt_publish = Adafruit_MQTT_Publish(&mqtt, MQTT_USERNAME MQTT_TOPIC);
-
-// publish
-#define PUBLISH_INTERVAL 30000
-unsigned long prev_post_time;
-
-// debug
-#define DEBUG_INTERVAL 2000
-unsigned long prev_debug_time;
 
 ICACHE_RAM_ATTR void count_isr()
 {
@@ -118,21 +110,15 @@ void setup()
 
 void publish_data()
 {
-  char payload[10];
-  sprintf (payload, "%ld", count);
   count = 0;
-  Serial.print(millis());
-  Serial.print(" Publishing: ");
-  Serial.println(payload);
 
-  Serial.print(millis());
   Serial.println(" Connecting...");
   if((WiFiMulti.run(conn_tout_ms) == WL_CONNECTED))
   {
     print_wifi_status();
   
     mqtt_connect();
-    if (! count_mqtt_publish.publish(payload))
+    if (! count_mqtt_publish.publish("external"))
     {
       debug("MQTT failed");
     }
@@ -145,18 +131,10 @@ void publish_data()
 
 void loop()
 {
-    if (millis() - prev_post_time >= PUBLISH_INTERVAL)
+    if (count > 0)
     {
-      prev_post_time = millis();
+      Serial.print("Publishing data from loop\n");
       publish_data();
-    }
-   
-    if (millis() - prev_debug_time >= DEBUG_INTERVAL)
-    {
-      prev_debug_time = millis();
-      Serial.print(millis());
-      Serial.print(" ");
-      Serial.println(count);
     }
 }
 
