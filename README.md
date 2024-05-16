@@ -9,10 +9,7 @@ Project Directory
 │   └── This folder holds the annotation JSON files that are generated from LLama
 |       based on the images that the `cloud` receives.
 │
-├── Cloud
-│   └── This folder holds the cloud code that handles the Annotations and git pushes.
-│
-├── Drone
+├── Drone and Cloud
 │   └── This folder holds the Drone scripts for connecting to the
 |       `wildlife camera` and initiating the cloud procedures.
 │
