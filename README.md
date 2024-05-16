@@ -1,8 +1,36 @@
 # WildLifeCameraRaspberrypi_Portfolio
 
+## Project struture
+The repo consists of several foldes strutrued out to only handle specific domains of the porfolio. <br/>
+```plaintext
+Project Directory
+│
+├── Annotations
+│   └── This folder holds the annotation JSON files that are generated from LLama
+|       based on the images that the `cloud` receives.
+│
+├── Cloud
+│   └── This folder holds the cloud code that handles the Annotations and git pushes.
+│
+├── Drone
+│   └── This folder holds the Drone scripts for connecting to the
+|       `wildlife camera` and initiating the cloud procedures.
+│
+├── Pi
+│   └── This folder holds the scripts that run on the `wildlife camera`.
+|       This includes communication with the esp32, Pi, and the functionality of the camera.
+│
+├── Esp32
+│   └── This folder holds the scripts for the esp32, handling external trigger functionality.
+│
+└── Pico
+    └── This folder holds the scripts for the Pico that manage the wiper functionality.
+```
 
-## Pi
-- [ ] Done?
+
+## Porfolio task outline
+### Pi
+- [x] Done?
 
 The wildlife camera linux system is your Raspberry Pi with a Raspberry Pi Camera Module 3. 
 
@@ -12,8 +40,8 @@ Please follow the installation instructions under Extra components. You can then
 
 To perform motion detection you may use the script motion_detect.py available on itslearning.
 
-## Pico
-- [ ] Done?
+### Pico
+- [x] Done?
 
 The camera is connected via USB to the Raspberry Pi which acts as rain sensor (simulated by press of the onboard BOOTSEL botton) and camera lens screen wiper (simulated by a servo performing a wiping movement).
 
@@ -40,15 +68,15 @@ If you send an angle outside 0-180, you will receive:
 If you send erroneous JSON data, you will receive:
 `{'serial': 'json_error'}`
 
-## Esp32
-- [ ] Done?
+### Esp32
+- [x] Done?
 
 The external wildlife trigger is the ESP8266 connected to the wildlife camera WiFi access point. The trigger mechanism is a ground wire and a digital input wire that simulate an animal walking above a pressure plate causing a short circuit of the wires (you may use an external button).
 
 Modify the Arduino sketch esp8266_count_mqtt.ino from module 7 to send data immediately when a short circuit (button press) is detected.
 
-## Drone
-- [ ] Done?
+### Drone
+- [x] Done?
 
 The drone is simulated by you linux desktop environment on your laptop.
 
@@ -58,6 +86,7 @@ When a camera WiFi SSID is found, the laptop should offload any new photos of fr
 
 The drone flight is terminated by manually stopping the drone flight script and connecting the WiFi to internet.
 
+### Cloud
 
 
 
