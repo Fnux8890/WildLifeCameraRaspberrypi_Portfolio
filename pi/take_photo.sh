@@ -7,10 +7,8 @@ if [ -d "/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/$today
 	echo "folder already exists"
 else
 	echo "Creating folder"
-	mkdir /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"
+	install -o jaflo18 -d -o 0755 ./"$today"
 fi
-
-latest_image=$(ls -t /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"/*.jpg | head -n1)
 
 echo $(rpicam-still -t 0.01 -o /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"/"$nowTime".jpg)
 
@@ -24,6 +22,7 @@ ms=$(date +%3N)
 
 milli="$epoch.$ms"
 
+echo "$1"
 #If the script is called with external the trigger is external and vice versa for other triggers
 if [ "$1" == "external" ]; then
   trigger="External"
