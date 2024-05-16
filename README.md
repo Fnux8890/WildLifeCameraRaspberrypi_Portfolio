@@ -17,7 +17,7 @@ Project Directory
 │   └── This folder holds the scripts that run on the `wildlife camera`.
 |       This includes communication with the esp32, Pi, and the functionality of the camera.
 │
-├── Esp32 # Note that the actual esp device is ESP8266
+├── Esp32 
 │   └── This folder holds the scripts for the ESP8266, handling external trigger functionality.
 │
 └── Pico
