@@ -52,3 +52,4 @@ Mkfile.old
 dkms.conf
 /pi/images/*
 /pi/images_tmp/*
+/drone_and_cloud/images/*

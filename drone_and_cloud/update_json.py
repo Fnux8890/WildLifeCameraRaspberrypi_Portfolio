@@ -15,3 +15,4 @@ def update_json(file_path):
 
 if __name__ == "__main__":
     update_json(sys.argv[1])
+
