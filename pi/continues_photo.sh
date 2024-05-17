@@ -7,8 +7,8 @@ FINAL_DIRECTORY="/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/image
 LOG_FILE="$WORKING_DIRECTORY/activity_log.txt"
 
 # Ensure working directories exist
-mkdir -m 777 -p $WORKING_DIRECTORY
-mkdir -m 777 -p $FINAL_DIRECTORY
+mkdir -m 777 -p $WORKING_DIRECTORY && chown jaflo18:jaflo18 $WORKING_DIRECTORY
+mkdir -m 777 -p $FINAL_DIRECTORY && chown jaflo18:jaflo18 $FINAL_DIRECTORY
 
 # Move current new to old before taking a new photo, if it exists
 PREVIOUS_NEW=$(ls -t ${WORKING_DIRECTORY}/*_tmp_new.jpg 2>/dev/null | head -n1)
