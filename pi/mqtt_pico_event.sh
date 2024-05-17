@@ -9,6 +9,6 @@ do
     # # Check for specific condition
     if [[ "$payload" == "wipe" ]]; then
         echo "Condition met, executing script..."
-        echo $(./pico_post.sh)
+        echo $(/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/pico_post.sh)
     fi
 done 

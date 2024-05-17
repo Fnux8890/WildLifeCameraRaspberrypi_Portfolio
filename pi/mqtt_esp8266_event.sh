@@ -10,7 +10,7 @@ PORT="1883"
 PASS="avd85hfk"
 
 
-SCRIPT_PATH="./take_photo.sh external"
+SCRIPT_PATH="/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/take_photo.sh external"
 
 # PAYLOAD=$(mosquitto_sub -d -h $HOST -p $PORT -u $USER -P $PASS -t $TOPIC) 
 # echo "message: $PAYLOAD"

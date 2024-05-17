@@ -7,7 +7,7 @@ if [ -d "/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/$today
 	echo "folder already exists"
 else
 	echo "Creating folder"
-	install -o jaflo18 -d -o 0755 ./"$today"
+	install -o jaflo18 -d -o 0755 "/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/$today"
 fi
 
 echo $(rpicam-still -t 0.01 -o /home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"$today"/"$nowTime".jpg)
