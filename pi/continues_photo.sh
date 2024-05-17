@@ -7,8 +7,8 @@ FINAL_DIRECTORY="/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/image
 LOG_FILE="$WORKING_DIRECTORY/activity_log.txt"
 
 # Ensure working directories exist
-mkdir -p $WORKING_DIRECTORY
-mkdir -p $FINAL_DIRECTORY
+mkdir -m 777 -p $WORKING_DIRECTORY
+mkdir -m 777 -p $FINAL_DIRECTORY
 
 # Move current new to old before taking a new photo, if it exists
 PREVIOUS_NEW=$(ls -t ${WORKING_DIRECTORY}/*_tmp_new.jpg 2>/dev/null | head -n1)
@@ -25,7 +25,7 @@ rpicam-still -t 0.01 -o $NEW_PHOTO_PATH
 
 # Create metadata JSON for the new photo
 create_date=$(date "+%Y-%m-%d %H:%M:%S.%3N%:z")
-subject_distance=$(exiftool $NEW_PHOTO_PATH | grep -i "Subject Distance" | awk -F ": " '{print $2}')
+subject_distance=$(exiftool $NEW_PHOTO_PATH | grep -i "Subject Distance" | awk -F ": " '{print $2}' | sed 's/ m$//')
 exposure_time=$(exiftool $NEW_PHOTO_PATH | grep -i "Exposure Time" | awk -F ": " '{print $2}')
 iso=$(exiftool $NEW_PHOTO_PATH | grep -i "ISO" | awk -F ": " '{print $2}')
 epoch=$(date +%s)
