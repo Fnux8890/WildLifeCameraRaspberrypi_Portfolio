@@ -18,10 +18,10 @@ current_ssid() {
 }
 
 set_time_on_ap() {
-    local ap_ip="10.0.0.10"  # Assuming this is the IP of the AP; replace it with the actual IP
+    local ap_ip="10.0.0.10" 
     local current_time=$(date +"%Y-%m-%d %T")
     echo "Setting time on AP to $current_time..."
-    ssh jaflo18@10.0.0.10 "sudo date -s '$current_time'"
+    ssh -i /home/username/.ssh/id_rsa jaflo18@10.0.0.10 "sudo date -s '$current_time'"
 }
 
 # Function to check if a specific WiFi SSID is available
