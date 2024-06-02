@@ -8,10 +8,10 @@ SECONDARY_SSID="Pixel"
 REMOTE_PATH="jaflo18@10.0.0.10:/home/jaflo18/exam/WildLifeCameraRaspberrypi_Portfolio/pi/images/"
 LOCAL_PATH="/home/jeppe/Desktop/WildLifeCameraRaspberrypi_Portfolio/drone_and_cloud/images"
 
-# Path to your Python GitHub script
+
 PYTHON_GITHUB_SCRIPT="/home/jeppe/Desktop/WildLifeCameraRaspberrypi_Portfolio/drone_and_cloud/gitpush.py"
 
-# Function to get the current WiFi SSID
+
 current_ssid() {
     ssid=$(iwgetid -r)
     echo "$ssid"
@@ -39,7 +39,7 @@ connect_to_wifi() {
     nmcli dev wifi connect "$target_ssid" password "$password" ifname wlan0
 }
 
-# Function to prioritize WiFi networks
+# Function to prioritize Wildlife AP networks
 prioritize_wifi() {
     local priority_ssid="$1"
     local secondary_ssid="$2"
