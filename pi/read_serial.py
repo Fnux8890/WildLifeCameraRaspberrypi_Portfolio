@@ -20,8 +20,8 @@ def on_message(client, userdata, message):
 
 def send_serial_command():
     global ser
-    ser.write(json.dumps({'wiper_angle': 180}).encode('utf-8'))
-    ser.write(json.dumps({'wiper_angle': 0}).encode('utf-8'))
+    ser.write(json.dumps({'wiper_angle': 179}).encode('utf-8'))
+    ser.write(json.dumps({'wiper_angle': 1}).encode('utf-8'))
 
 def main():
     global ser
